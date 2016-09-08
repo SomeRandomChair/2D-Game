@@ -4,15 +4,15 @@ import org.newdawn.slick.Renderable;
 
 public class RenderableImage
 {
-	private Renderable renderable;
-	private ZType zType;
-	private int yRenderPos;
-	private float X;
-	private float Y;
-	
-	public RenderableImage ( Renderable image, float X, float Y, ZType zType, int yRenderPos )
+	private Renderable	renderable;
+	private ZType		zType;
+	private int			yRenderPos;
+	private float		X;
+	private float		Y;
+
+	public RenderableImage( Renderable image, float X, float Y, ZType zType, int yRenderPos )
 	{
-		super ();
+		super();
 		this.renderable = image;
 		this.zType = zType;
 		this.yRenderPos = yRenderPos;

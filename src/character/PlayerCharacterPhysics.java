@@ -29,80 +29,80 @@ public class PlayerCharacterPhysics
 
 	public PlayerCharacterPhysics()
 	{
-		this.collisionBox = new Ellipse( ( int ) X + collBoxXOffset, ( int ) Y + collBoxYOffset, 8, 8, 16 );
+		this.collisionBox = new Ellipse( (int) X + collBoxXOffset, (int) Y + collBoxYOffset, 8, 8, 16 );
 		this.speed = BASESPEED;
 	}
 
-	public double getX()
+	public double getX ()
 	{
 		return X;
 	}
 
-	public double getY()
+	public double getY ()
 	{
 		return Y;
 	}
 
-	public double getSpeed()
+	public double getSpeed ()
 	{
 		return speed;
 	}
 
-	protected void setSpeed( double speed )
+	protected void setSpeed ( double speed )
 	{
 		this.speed = speed;
 	}
 
-	public int getzOrder()
+	public int getzOrder ()
 	{
 		return zOrder;
 	}
 
-	public void setX( double x )
+	public void setX ( double x )
 	{
 		X = x;
 	}
 
-	public void setY( double y )
+	public void setY ( double y )
 	{
 		Y = y;
 	}
 
-	public void setPoint( double x, double y )
+	public void setPoint ( double x, double y )
 	{
 		X = x;
 		Y = y;
 	}
 
-	public Shape getCollisionBox()
+	public Shape getCollisionBox ()
 	{
 		return collisionBox;
 	}
 
-	public int getCollBoxXOffset()
+	public int getCollBoxXOffset ()
 	{
 		return collBoxXOffset;
 	}
 
-	public int getCollBoxYOffset()
+	public int getCollBoxYOffset ()
 	{
 		return collBoxYOffset;
 	}
 
-	public boolean moveCharacter( AbstractGameMap map, int delta, int relX, int relY, boolean shiftDown )
+	public boolean moveCharacter ( AbstractGameMap map, int delta, int relX, int relY, boolean shiftDown )
 	{
-		if( shiftDown )
+		if ( shiftDown )
 			setSpeed( BASESPEED * 1.75 );
 		else
 			setSpeed( BASESPEED );
 
-		if( Math.abs( relX ) == 1 && Math.abs( relY ) == 1 )
+		if ( Math.abs( relX ) == 1 && Math.abs( relY ) == 1 )
 		{
-			return moveXY( relX * getSpeed() * 0.71, - relY * getSpeed() * 0.71, delta, map );
+			return moveXY( relX * getSpeed() * 0.71, -relY * getSpeed() * 0.71, delta, map );
 		}
 		else
 		{
-			return moveXY( relX * getSpeed(), - relY * getSpeed(), delta, map );
+			return moveXY( relX * getSpeed(), -relY * getSpeed(), delta, map );
 		}
 
 	}
@@ -123,17 +123,17 @@ public class PlayerCharacterPhysics
 	 * @param map
 	 *            - The map to move within.
 	 */
-	public boolean moveXY( double xChange, double yChange, int delta, AbstractGameMap map )
+	public boolean moveXY ( double xChange, double yChange, int delta, AbstractGameMap map )
 	{
-		if( xChange == 0 && yChange == 0 )
+		if ( xChange == 0 && yChange == 0 )
 		{
 			return false;
 		}
-		for( int i = 0; i < delta; i ++ )
+		for (int i = 0; i < delta; i++)
 		{
-			if( ! moveXYAttempts( xChange, yChange, map, false, false ) )
+			if ( !moveXYAttempts( xChange, yChange, map, false, false ) )
 			{
-				if( i == 0 )
+				if ( i == 0 )
 				{
 					return false;
 				}
@@ -160,20 +160,20 @@ public class PlayerCharacterPhysics
 	 *            - Is this a third attempt?
 	 * @return Has this character successfully moved.
 	 */
-	public boolean moveXYAttempts( double xChange, double yChange, AbstractGameMap map, boolean tryAgain, boolean secondTryAgain )
+	public boolean moveXYAttempts ( double xChange, double yChange, AbstractGameMap map, boolean tryAgain, boolean secondTryAgain )
 	{
 		/*
 		 * Creates a normal (i.e. length 1) vector of the
 		 * movement being attempted.
 		 */
-		Vector2f movementVectorNormalised = ( new Vector2f( ( float ) xChange, ( float ) yChange ) ).normalise();
+		Vector2f movementVectorNormalised = ( new Vector2f( (float) xChange, (float) yChange ) ).normalise();
 
 		/*
 		 * Moves this character's collision box to where
 		 * it'll move, to check for a collision.
 		 */
-		collisionBox.setX( ( float ) ( this.X + xChange + 8 ) );
-		collisionBox.setY( ( float ) ( this.Y + yChange + 22 ) );
+		collisionBox.setX( (float) ( this.X + xChange + 8 ) );
+		collisionBox.setY( (float) ( this.Y + yChange + 22 ) );
 
 		/*
 		 * A list of vectors which represent the resultant
@@ -187,11 +187,11 @@ public class PlayerCharacterPhysics
 		 * the map, if this character would collide, add
 		 * such resultant movement vectors to listOfVectors.
 		 */
-		for( ImageObject imageObj : map.getImageObjects() )
+		for (ImageObject imageObj : map.getImageObjects())
 		{
-			for( Shape imageObjCollShape : imageObj.getCollisionBoxes() )
+			for (Shape imageObjCollShape : imageObj.getCollisionBoxes())
 			{
-				if( imageObjCollShape.intersects( collisionBox ) )
+				if ( imageObjCollShape.intersects( collisionBox ) )
 				{
 					listOfVectors.addAll( getIntersectionMovementVector( imageObjCollShape, collisionBox, xChange, yChange ) );
 				}
@@ -203,11 +203,11 @@ public class PlayerCharacterPhysics
 		 * move.
 		 */
 
-		if( listOfVectors.size() == 0 )
+		if ( listOfVectors.size() == 0 )
 		{
 			this.X += xChange;
 			this.Y += yChange;
-			directionLastMoved = new Vector2f( ( float ) xChange, ( float ) yChange );
+			directionLastMoved = new Vector2f( (float) xChange, (float) yChange );
 			return true;
 		}
 
@@ -217,9 +217,9 @@ public class PlayerCharacterPhysics
 		Vector2f rightVectorChange = new Vector2f( 0, 0 );
 		Vector2f leftVectorChange = new Vector2f( 0, 0 );
 
-		for( Vector2f vector : listOfVectors )
+		for (Vector2f vector : listOfVectors)
 		{
-			if( vector.length() < 0.001 && vector.getTheta() == 0 )
+			if ( vector.length() < 0.001 && vector.getTheta() == 0 )
 			{
 				willMove = false;
 			}
@@ -232,17 +232,17 @@ public class PlayerCharacterPhysics
 			 * right of course or slightly left of course
 			 * successfully.
 			 */
-			if( vector.getX() == 1000 && vector.getY() == 1000 )
+			if ( vector.getX() == 1000 && vector.getY() == 1000 )
 			{
 
-				Vector2f rightVector = new Vector2f( ( float ) xChange, ( float ) yChange ), leftVector = new Vector2f( ( float ) xChange,
-						( float ) yChange );
+				Vector2f rightVector = new Vector2f( (float) xChange, (float) yChange ),
+						leftVector = new Vector2f( (float) xChange, (float) yChange );
 				rightVector.setTheta( rightVector.getTheta() + 10 );
 				leftVector.setTheta( leftVector.getTheta() - 10 );
 
-				if( ! moveXYAttempts( rightVector.getX(), rightVector.getY(), map, true, true ) )
+				if ( !moveXYAttempts( rightVector.getX(), rightVector.getY(), map, true, true ) )
 				{
-					if( ! moveXYAttempts( leftVector.getX(), leftVector.getY(), map, true, true ) )
+					if ( !moveXYAttempts( leftVector.getX(), leftVector.getY(), map, true, true ) )
 					{
 						return false;
 					}
@@ -251,58 +251,58 @@ public class PlayerCharacterPhysics
 			}
 			double theta = vector.getTheta() - movementVectorNormalised.getTheta();
 
-			if( theta > 180 )
+			if ( theta > 180 )
 				theta = theta - 360;
-			if( theta < - 180 )
+			if ( theta < -180 )
 				theta = theta + 360;
 
-			if( theta == 180 || theta == - 180 )
+			if ( theta == 180 || theta == -180 )
 			{
 				return false;
 			}
 
-			if( theta > rightDirAngle )
+			if ( theta > rightDirAngle )
 			{
 				rightDirAngle = theta;
 				rightVectorChange = vector;
 			}
-			else if( theta < leftDirAngle )
+			else if ( theta < leftDirAngle )
 			{
 				leftDirAngle = theta;
 				leftVectorChange = vector;
 			}
 		}
 
-		if( ! willMove )
+		if ( !willMove )
 		{
 			return false;
 		}
 
-		if( rightDirAngle == 0 )
+		if ( rightDirAngle == 0 )
 		{
 			this.X += leftVectorChange.getX();
 			this.Y += leftVectorChange.getY();
-			this.collisionBox.setX( ( float ) ( this.X + xChange + collBoxXOffset ) );
-			this.collisionBox.setY( ( float ) ( this.Y + yChange + collBoxYOffset ) );
+			this.collisionBox.setX( (float) ( this.X + xChange + collBoxXOffset ) );
+			this.collisionBox.setY( (float) ( this.Y + yChange + collBoxYOffset ) );
 			this.directionSecondLastMoved = directionLastMoved;
 			this.directionLastMoved = new Vector2f( leftVectorChange.getX(), leftVectorChange.getY() );
 			return true;
 		}
-		else if( leftDirAngle == 0 )
+		else if ( leftDirAngle == 0 )
 		{
 			this.X += rightVectorChange.getX();
 			this.Y += rightVectorChange.getY();
-			this.collisionBox.setX( ( float ) ( this.X + xChange + collBoxXOffset ) );
-			this.collisionBox.setY( ( float ) ( this.Y + yChange + collBoxYOffset ) );
+			this.collisionBox.setX( (float) ( this.X + xChange + collBoxXOffset ) );
+			this.collisionBox.setY( (float) ( this.Y + yChange + collBoxYOffset ) );
 			this.directionSecondLastMoved = directionLastMoved;
 			this.directionLastMoved = new Vector2f( rightVectorChange.getX(), rightVectorChange.getY() );
 			return true;
 		}
-		else if( secondTryAgain )
+		else if ( secondTryAgain )
 		{
 			return false;
 		}
-		else if( tryAgain )
+		else if ( tryAgain )
 		{
 			return moveXYAttempts( directionSecondLastMoved.getX(), directionSecondLastMoved.getY(), map, true, true );
 		}
@@ -319,33 +319,33 @@ public class PlayerCharacterPhysics
 	 * @param yChange
 	 * @return
 	 */
-	public List<Vector2f> getIntersectionMovementVector( Shape imageObjCollShape, Shape collisionBox, double xChange, double yChange )
+	public List<Vector2f> getIntersectionMovementVector ( Shape imageObjCollShape, Shape collisionBox, double xChange, double yChange )
 	{
 		Vector2f movementVector;
 		Vector2f newMotionVector;
 		Line line;
 		List<Vector2f> list = new ArrayList<Vector2f>();
 
-		for( int i = 0; i < imageObjCollShape.getPointCount(); i ++ )
+		for (int i = 0; i < imageObjCollShape.getPointCount(); i++)
 		{
-			movementVector = new Vector2f( ( float ) xChange, ( float ) yChange );
+			movementVector = new Vector2f( (float) xChange, (float) yChange );
 
-			float [] point1 = imageObjCollShape.getPoint( i );
-			float [] point2 = imageObjCollShape.getPoint( ( i + 1 ) % imageObjCollShape.getPointCount() );
+			float[] point1 = imageObjCollShape.getPoint( i );
+			float[] point2 = imageObjCollShape.getPoint( ( i + 1 ) % imageObjCollShape.getPointCount() );
 
-			line = new Line( point1 [ 0 ], point1 [ 1 ], point2 [ 0 ], point2 [ 1 ] );
+			line = new Line( point1[0], point1[1], point2[0], point2[1] );
 
-			if( ( line ).intersects( collisionBox ) )
+			if ( ( line ).intersects( collisionBox ) )
 			{
 				// Gets normal vector out of wall.
-				Vector2f normVector = new Vector2f( point1 [ 0 ] - point2 [ 0 ], point1 [ 1 ] - point2 [ 1 ] ).getPerpendicular().normalise();
+				Vector2f normVector = new Vector2f( point1[0] - point2[0], point1[1] - point2[1] ).getPerpendicular().normalise();
 
 				newMotionVector = new Vector2f();
 
 				// Vector pushing character out of wall.
 				Vector2f vector1 = normVector.scale( normVector.dot( movementVector ) ).negate();
 
-				if( vector1.length() < 0.0001 )
+				if ( vector1.length() < 0.0001 )
 				{
 					list.add( new Vector2f( 1000, 1000 ) );
 					continue;

@@ -26,7 +26,7 @@ public class SaveXMLFileWriter
 		this.file = file;
 	}
 
-	public void writeSaves( Map<String, Save> saves ) throws FileNotFoundException, XMLStreamException, FactoryConfigurationError
+	public void writeSaves ( Map<String, Save> saves ) throws FileNotFoundException, XMLStreamException, FactoryConfigurationError
 	{
 		XMLEventWriter eventWriter = ( XMLOutputFactory.newInstance() ).createXMLEventWriter( new FileOutputStream( file ), "UTF-8" );
 
@@ -35,7 +35,7 @@ public class SaveXMLFileWriter
 		eventWriter.add( eventFactory.createStartElement( "", "", SAVES ) );
 		eventWriter.add( end );
 
-		for( String saveDatetime : saves.keySet() )
+		for (String saveDatetime : saves.keySet())
 		{
 			addSave( eventWriter, saveDatetime, saves.get( saveDatetime ) );
 		}
@@ -46,7 +46,7 @@ public class SaveXMLFileWriter
 		eventWriter.close();
 	}
 
-	private void addSave( XMLEventWriter eventWriter, String saveDatetime, Save save ) throws XMLStreamException
+	private void addSave ( XMLEventWriter eventWriter, String saveDatetime, Save save ) throws XMLStreamException
 	{
 
 		eventWriter.add( tab );
@@ -54,7 +54,7 @@ public class SaveXMLFileWriter
 		eventWriter.add( eventFactory.createAttribute( Save.DATETIME, saveDatetime ) );
 		eventWriter.add( end );
 
-		for( SaveAttribute saveAttribute : SaveAttribute.values() )
+		for (SaveAttribute saveAttribute : SaveAttribute.values())
 		{
 			createNode( eventWriter, saveAttribute.toString(), save.getXmlToData().get( saveAttribute ) );
 		}
@@ -64,13 +64,13 @@ public class SaveXMLFileWriter
 		eventWriter.add( end );
 	}
 
-	private void createNode( XMLEventWriter eventWriter, String name, String value ) throws XMLStreamException
+	private void createNode ( XMLEventWriter eventWriter, String name, String value ) throws XMLStreamException
 	{
 		eventWriter.add( tab );
 		eventWriter.add( tab );
 		eventWriter.add( eventFactory.createStartElement( "", "", name ) );
 
-		if( value != null )
+		if ( value != null )
 		{
 			eventWriter.add( eventFactory.createCharacters( value ) );
 		}

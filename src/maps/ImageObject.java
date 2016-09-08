@@ -30,11 +30,11 @@ public class ImageObject
 	 * @param height
 	 * @param isMainCharacter
 	 */
-	public ImageObject( float X, float Y, int collBoxXOffset, int collBoxYOffset, int width, int height,
-			boolean isMainCharacter )
+	public ImageObject( float X, float Y, int collBoxXOffset, int collBoxYOffset, int width, int height, boolean isMainCharacter )
 	{
-		this( new ArrayList<RenderableImage>(), X, Y, new ArrayList<Shape>( Arrays.asList( new Rectangle( X + collBoxXOffset,
-				Y + collBoxYOffset, width, height ) ) ), isMainCharacter );
+		this( new ArrayList<RenderableImage>(), X, Y,
+				new ArrayList<Shape>( Arrays.asList( new Rectangle( X + collBoxXOffset, Y + collBoxYOffset, width, height ) ) ),
+				isMainCharacter );
 	}
 
 	/**
@@ -48,8 +48,7 @@ public class ImageObject
 	 */
 	public ImageObject( float X, float Y, List<Shape> collisionBoxes, int yRenderPos, boolean isMainCharacter )
 	{
-		this( new ArrayList<RenderableImage>(), X, Y,
-				collisionBoxes, isMainCharacter );
+		this( new ArrayList<RenderableImage>(), X, Y, collisionBoxes, isMainCharacter );
 	}
 
 	/**
@@ -66,9 +65,10 @@ public class ImageObject
 	public ImageObject( Renderable renderable, float X, float Y, int collBoxXOffset, int collBoxYOffset, int width, int height,
 			boolean isMainCharacter )
 	{
-		this( new ArrayList<RenderableImage>( Arrays.asList( new RenderableImage( renderable, X, Y, ZType.STANDARD,
-				( int ) ( Y + collBoxYOffset + ( height >> 1 ) ) ) ) ), X, Y, new ArrayList<Shape>( Arrays.asList( new Rectangle( X + collBoxXOffset,
-				Y + collBoxYOffset, width, height ) ) ), isMainCharacter );
+		this( new ArrayList<RenderableImage>(
+				Arrays.asList( new RenderableImage( renderable, X, Y, ZType.STANDARD, (int) ( Y + collBoxYOffset + ( height >> 1 ) ) ) ) ),
+				X, Y, new ArrayList<Shape>( Arrays.asList( new Rectangle( X + collBoxXOffset, Y + collBoxYOffset, width, height ) ) ),
+				isMainCharacter );
 	}
 
 	/**
@@ -100,7 +100,8 @@ public class ImageObject
 	public ImageObject( List<RenderableImage> renderables, float X, float Y, int collBoxXOffset, int collBoxYOffset, int width, int height,
 			boolean isMainCharacter )
 	{
-		this( renderables, X, Y, new ArrayList<Shape>( Arrays.asList( new Rectangle( X + collBoxXOffset, Y + collBoxYOffset, width, height ) ) ),
+		this( renderables, X, Y,
+				new ArrayList<Shape>( Arrays.asList( new Rectangle( X + collBoxXOffset, Y + collBoxYOffset, width, height ) ) ),
 				isMainCharacter );
 	}
 
@@ -123,51 +124,51 @@ public class ImageObject
 
 		this.lowestCollBoxYCoordOffset = Integer.MIN_VALUE;
 
-		for( Shape collBox : collisionBoxes )
+		for (Shape collBox : collisionBoxes)
 		{
 			collBox.setCenterX( collBox.getCenterX() + X );
 			collBox.setCenterY( collBox.getCenterY() + Y );
-			if( collBox.getMinY() > lowestCollBoxYCoordOffset )
-				lowestCollBoxYCoordOffset = ( int ) collBox.getCenterY();
+			if ( collBox.getMinY() > lowestCollBoxYCoordOffset )
+				lowestCollBoxYCoordOffset = (int) collBox.getCenterY();
 		}
 	}
 
-	public void setX( int X )
+	public void setX ( int X )
 	{
 		this.X = X;
 	}
 
-	public void setY( int Y )
+	public void setY ( int Y )
 	{
 		this.Y = Y;
 	}
 
-	public List<RenderableImage> getRenderables()
+	public List<RenderableImage> getRenderables ()
 	{
 		return renderables;
 	}
 
-	public float getX()
+	public float getX ()
 	{
 		return X;
 	}
 
-	public float getY()
+	public float getY ()
 	{
 		return Y;
 	}
 
-	public List<Shape> getCollisionBoxes()
+	public List<Shape> getCollisionBoxes ()
 	{
 		return collisionBoxes;
 	}
 
-	public boolean isMainCharacter()
+	public boolean isMainCharacter ()
 	{
 		return isMainCharacter;
 	}
 
-	public int getLowestCollBoxYCoordOffset()
+	public int getLowestCollBoxYCoordOffset ()
 	{
 		return lowestCollBoxYCoordOffset;
 	}

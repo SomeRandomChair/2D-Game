@@ -25,7 +25,8 @@ public class PlayerCharacter
 	private PlayerCharacterAnimation	animation;
 	private List<Quest>					quests;
 
-	PlayerCharacter( String name, Direction direction, PlayerCharacterStats characterStats, Weapon weapon, HeadArmour headArmour, TorsoArmour torsoArmour, LegArmour legArmour, ForearmArmour forearmArmour )
+	PlayerCharacter( String name, Direction direction, PlayerCharacterStats characterStats, Weapon weapon, HeadArmour headArmour,
+			TorsoArmour torsoArmour, LegArmour legArmour, ForearmArmour forearmArmour )
 	{
 		this.name = name;
 		this.characterStats = characterStats;
@@ -46,32 +47,32 @@ public class PlayerCharacter
 		collShapes.add( physics.getCollisionBox() );
 	}
 
-	public String getName()
+	public String getName ()
 	{
 		return name;
 	}
 
-	public PlayerCharacterStats getCharacterStats()
+	public PlayerCharacterStats getCharacterStats ()
 	{
 		return characterStats;
 	}
 
-	public PlayerCharacterEquipment getCharacterEquipment()
+	public PlayerCharacterEquipment getCharacterEquipment ()
 	{
 		return characterEquipment;
 	}
 
-	public List<Quest> getQuests()
+	public List<Quest> getQuests ()
 	{
 		return quests;
 	}
 
-	public PlayerCharacterPhysics getCharacterPhysics()
+	public PlayerCharacterPhysics getCharacterPhysics ()
 	{
 		return physics;
 	}
 
-	public PlayerCharacterAnimation getCharacterAnimation()
+	public PlayerCharacterAnimation getCharacterAnimation ()
 	{
 		return animation;
 	}
@@ -80,22 +81,22 @@ public class PlayerCharacter
 	private int		relY;
 	private boolean	isShiftDown;
 
-	public boolean moveCharacter( int delta, Input input, AbstractGameMap map )
+	public boolean moveCharacter ( int delta, Input input, AbstractGameMap map )
 	{
 		relX = 0;
 		relY = 0;
 
-		if( input.isKeyDown( Input.KEY_UP ) )
-			relY ++ ;
+		if ( input.isKeyDown( Input.KEY_UP ) )
+			relY++;
 
-		if( input.isKeyDown( Input.KEY_RIGHT ) )
-			relX ++ ;
+		if ( input.isKeyDown( Input.KEY_RIGHT ) )
+			relX++;
 
-		if( input.isKeyDown( Input.KEY_DOWN ) )
-			relY -- ;
+		if ( input.isKeyDown( Input.KEY_DOWN ) )
+			relY--;
 
-		if( input.isKeyDown( Input.KEY_LEFT ) )
-			relX -- ;
+		if ( input.isKeyDown( Input.KEY_LEFT ) )
+			relX--;
 
 		isShiftDown = input.isKeyDown( Input.KEY_LSHIFT );
 		boolean return_bool = physics.moveCharacter( map, delta, relX, relY, isShiftDown );

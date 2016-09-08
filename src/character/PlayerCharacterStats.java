@@ -19,62 +19,62 @@ public class PlayerCharacterStats
 		this.maxEquipmentWeight = 40 + endurance;
 	}
 
-	public int getVitality()
+	public int getVitality ()
 	{
 		return vitality;
 	}
 
-	public void setVitality( int vitality )
+	public void setVitality ( int vitality )
 	{
 		this.vitality = vitality;
 	}
 
-	public int getEndurance()
+	public int getEndurance ()
 	{
 		return endurance;
 	}
 
-	public void setEndurance( int endurance )
+	public void setEndurance ( int endurance )
 	{
 		this.endurance = endurance;
 	}
 
-	public int getStrength()
+	public int getStrength ()
 	{
 		return strength;
 	}
 
-	public void setStrength( int strength )
+	public void setStrength ( int strength )
 	{
 		this.strength = strength;
 	}
 
-	public int getDexterity()
+	public int getDexterity ()
 	{
 		return dexterity;
 	}
 
-	public void setDexterity( int dexterity )
+	public void setDexterity ( int dexterity )
 	{
 		this.dexterity = dexterity;
 	}
 
-	public int getMaxHealth()
+	public int getMaxHealth ()
 	{
 		return maxHealth;
 	}
 
-	public void setMaxHealth( int maxHealth )
+	public void setMaxHealth ( int maxHealth )
 	{
 		this.maxHealth = maxHealth;
 	}
 
-	public int getMaxEquipmentWeight()
+	public int getMaxEquipmentWeight ()
 	{
 		return maxEquipmentWeight;
 	}
 
-	public void setMaxEquipmentWeight( int maxEquipmentWeight )
+	public void setMaxEquipmentWeight ( int maxEquipmentWeight )
 	{
 		this.maxEquipmentWeight = maxEquipmentWeight;
 	}

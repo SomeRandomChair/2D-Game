@@ -5,7 +5,7 @@ public enum SaveAttribute
 	NAME, MAP, X, Y, DIRECTION, DATA;
 
 	@Override
-	public String toString()
+	public String toString ()
 	{
 		return this.name().toLowerCase();
 	}

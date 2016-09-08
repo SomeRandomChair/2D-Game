@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<saves>
+	<save datetime="2016-08-03T02:18:20.112">
+		<name>Save 1</name>
+		<map>HouseOuter</map>
+		<x>200</x>
+		<y>200</y>
+		<direction>DOWN</direction>
+		<data>0</data>
+	</save>
+	<save datetime="2016-08-23T13:55:45.627">
+		<name>SaveName</name>
+		<map>HouseOuter</map>
+		<x>88</x>
+		<y>195</y>
+		<direction>DOWN</direction>
+		<data>No Data</data>
+	</save>
+	<save datetime="2016-08-23T15:04:58.102">
+		<name>SaveName</name>
+		<map>HouseForest</map>
+		<x>144</x>
+		<y>438</y>
+		<direction>DOWN</direction>
+		<data>No Data</data>
+	</save>
+	<save datetime="2016-08-29T13:45:09.849">
+		<name>SaveName</name>
+		<map>HouseOuter</map>
+		<x>756</x>
+		<y>165</y>
+		<direction>LEFT</direction>
+		<data>No Data</data>
+	</save>
+	<save datetime="2016-09-08T16:06:33.549">
+		<name>SaveName</name>
+		<map>HouseOuter</map>
+		<x>415</x>
+		<y>197</y>
+		<direction>DOWN</direction>
+		<data>No Data</data>
+	</save>
+</saves>

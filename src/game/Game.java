@@ -10,30 +10,31 @@ import view.View;
 public class Game
 {
 	public static final String	GAMENAME	= "2D Game";
+	public static final String	VERSION		= "v0.1";
 	public static final int		WIDTH		= 800;
 	public static final int		HEIGHT		= 480;
 
-	private Model		model;
-	private View		view;
-	private Controller	controller;
+	private Model				model;
+	private View				view;
+	private Controller			controller;
 
-	public static void main( String [] args )
+	public static void main ( String[] args )
 	{
 		new Game().startGame();
 	}
 
-	private void startGame()
+	private void startGame ()
 	{
 		SwingUtilities.invokeLater( new Runnable()
 		{
 			@Override
-			public void run()
+			public void run ()
 			{
 				try
 				{
 					load();
 				}
-				catch( SlickException e )
+				catch ( SlickException e )
 				{
 					e.printStackTrace();
 				}
@@ -41,16 +42,16 @@ public class Game
 		} );
 	}
 
-	private void load() throws SlickException
+	private void load () throws SlickException
 	{
-		model = new Model( GAMENAME, WIDTH, HEIGHT );
+		model = new Model( GAMENAME + " " + VERSION, WIDTH, HEIGHT );
 		view = new View( model );
 		controller = new Controller( model, view );
 		view.getPlay().setUpdateListener( controller );
 		startView();
 	}
 
-	private void startView()
+	private void startView ()
 	{
 		AppGameContainer appGC;
 
@@ -60,7 +61,7 @@ public class Game
 			appGC.setDisplayMode( WIDTH, HEIGHT, false );
 			appGC.start();
 		}
-		catch( SlickException e )
+		catch ( SlickException e )
 		{
 			e.printStackTrace();
 		}

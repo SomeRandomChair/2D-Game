@@ -26,7 +26,8 @@ public class PlayerCharacterEquipment
 	private List<ForearmArmour>	forearmArmour;
 	private int					forearmArmourPointer;
 
-	public PlayerCharacterEquipment( Weapon weapon, HeadArmour headArmour, TorsoArmour torsoArmour, LegArmour legArmour, ForearmArmour forearmArmour )
+	public PlayerCharacterEquipment( Weapon weapon, HeadArmour headArmour, TorsoArmour torsoArmour, LegArmour legArmour,
+			ForearmArmour forearmArmour )
 	{
 		this.weapons = new ArrayList<Weapon>();
 		this.weapons.add( weapon );
@@ -49,77 +50,77 @@ public class PlayerCharacterEquipment
 		this.forearmArmourPointer = 0;
 	}
 
-	public int getWeaponPointer()
+	public int getWeaponPointer ()
 	{
 		return weaponPointer;
 	}
 
-	public void setWeaponPointer( int weaponPointer )
+	public void setWeaponPointer ( int weaponPointer )
 	{
 		this.weaponPointer = weaponPointer;
 	}
 
-	public int getHeadArmourPointer()
+	public int getHeadArmourPointer ()
 	{
 		return headArmourPointer;
 	}
 
-	public void setHeadArmourPointer( int headArmourPointer )
+	public void setHeadArmourPointer ( int headArmourPointer )
 	{
 		this.headArmourPointer = headArmourPointer;
 	}
 
-	public int getTorsoArmourPointer()
+	public int getTorsoArmourPointer ()
 	{
 		return torsoArmourPointer;
 	}
 
-	public void setTorsoArmourPointer( int torsoArmourPointer )
+	public void setTorsoArmourPointer ( int torsoArmourPointer )
 	{
 		this.torsoArmourPointer = torsoArmourPointer;
 	}
 
-	public int getLegArmourPointer()
+	public int getLegArmourPointer ()
 	{
 		return legArmourPointer;
 	}
 
-	public void setLegArmourPointer( int legArmourPointer )
+	public void setLegArmourPointer ( int legArmourPointer )
 	{
 		this.legArmourPointer = legArmourPointer;
 	}
 
-	public int getForearmArmourPointer()
+	public int getForearmArmourPointer ()
 	{
 		return forearmArmourPointer;
 	}
 
-	public void setForearmArmourPointer( int forearmArmourPointer )
+	public void setForearmArmourPointer ( int forearmArmourPointer )
 	{
 		this.forearmArmourPointer = forearmArmourPointer;
 	}
 
-	public List<Weapon> getWeapons()
+	public List<Weapon> getWeapons ()
 	{
 		return weapons;
 	}
 
-	public List<HeadArmour> getHeadArmour()
+	public List<HeadArmour> getHeadArmour ()
 	{
 		return headArmour;
 	}
 
-	public List<TorsoArmour> getTorsoArmour()
+	public List<TorsoArmour> getTorsoArmour ()
 	{
 		return torsoArmour;
 	}
 
-	public List<LegArmour> getLegArmour()
+	public List<LegArmour> getLegArmour ()
 	{
 		return legArmour;
 	}
 
-	public List<ForearmArmour> getForearmArmour()
+	public List<ForearmArmour> getForearmArmour ()
 	{
 		return forearmArmour;
 	}

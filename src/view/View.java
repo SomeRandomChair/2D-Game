@@ -11,8 +11,7 @@ import view.battle.Battle;
 import view.menu.Menu;
 import view.play.Play;
 
-public class View
-		extends StateBasedGame
+public class View extends StateBasedGame
 {
 	private Model	model;
 
@@ -34,7 +33,7 @@ public class View
 	}
 
 	@Override
-	public void initStatesList( GameContainer gc ) throws SlickException
+	public void initStatesList ( GameContainer gc ) throws SlickException
 	{
 		this.getState( StateEnum.MENU.getValue() ).init( gc, this );
 		this.getState( StateEnum.PLAY.getValue() ).init( gc, this );
@@ -43,7 +42,7 @@ public class View
 		this.enterState( StateEnum.MENU.getValue() );
 	}
 
-	public void start()
+	public void start ()
 	{
 		AppGameContainer appGC;
 
@@ -53,23 +52,23 @@ public class View
 			appGC.setDisplayMode( model.WIDTH, model.HEIGHT, false );
 			appGC.start();
 		}
-		catch( SlickException e )
+		catch ( SlickException e )
 		{
 			e.printStackTrace();
 		}
 	}
 
-	public Play getPlay()
+	public Play getPlay ()
 	{
 		return play;
 	}
 
-	public Menu getMenu()
+	public Menu getMenu ()
 	{
 		return menu;
 	}
 
-	public Battle getBattle()
+	public Battle getBattle ()
 	{
 		return battle;
 	}

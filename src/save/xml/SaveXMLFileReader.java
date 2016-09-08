@@ -16,14 +16,14 @@ import javax.xml.stream.events.XMLEvent;
 
 public class SaveXMLFileReader
 {
-	private String		file;
+	private String file;
 
 	public SaveXMLFileReader( String file )
 	{
 		this.file = file;
 	}
 
-	public TreeMap<String, Save> readConfig()
+	public TreeMap<String, Save> readConfig ()
 	{
 		TreeMap<String, Save> items = new TreeMap<String, Save>();
 		try
@@ -37,15 +37,15 @@ public class SaveXMLFileReader
 			String datetime = null;
 			Save save = null;
 
-			while( eventReader.hasNext() )
+			while ( eventReader.hasNext() )
 			{
 				XMLEvent event = eventReader.nextEvent();
 
-				if( event.isStartElement() )
+				if ( event.isStartElement() )
 				{
 					StartElement startElement = event.asStartElement();
 
-					if( startElement.getName().getLocalPart().equals( Save.SAVE ) )
+					if ( startElement.getName().getLocalPart().equals( Save.SAVE ) )
 					{
 						save = new Save();
 						/*
@@ -53,12 +53,12 @@ public class SaveXMLFileReader
 						 * tag and add the date attribute to
 						 * our object
 						 */
-						@SuppressWarnings( "unchecked" )
+						@SuppressWarnings ( "unchecked" )
 						Iterator<Attribute> attributes = startElement.getAttributes();
-						while( attributes.hasNext() )
+						while ( attributes.hasNext() )
 						{
 							Attribute attribute = attributes.next();
-							if( attribute.getName().toString().equals( Save.DATETIME ) )
+							if ( attribute.getName().toString().equals( Save.DATETIME ) )
 							{
 								datetime = attribute.getValue();
 							}
@@ -68,12 +68,13 @@ public class SaveXMLFileReader
 
 					try
 					{
-						SaveAttribute saveAttribute = SaveAttribute.valueOf( event.asStartElement().getName().getLocalPart().toUpperCase() );
+						SaveAttribute saveAttribute = SaveAttribute
+								.valueOf( event.asStartElement().getName().getLocalPart().toUpperCase() );
 						event = eventReader.nextEvent();
 						save.getXmlToData().put( saveAttribute, event.asCharacters().getData() );
 						continue;
 					}
-					catch( IllegalArgumentException e )
+					catch ( IllegalArgumentException e )
 					{
 
 					}
@@ -81,21 +82,21 @@ public class SaveXMLFileReader
 
 				// If we reach the end of an item element,
 				// we add it to the list
-				if( event.isEndElement() )
+				if ( event.isEndElement() )
 				{
 					EndElement endElement = event.asEndElement();
-					if( endElement.getName().getLocalPart() == ( Save.SAVE ) )
+					if ( endElement.getName().getLocalPart() == ( Save.SAVE ) )
 					{
 						items.put( datetime, save );
 					}
 				}
 			}
 		}
-		catch( FileNotFoundException e )
+		catch ( FileNotFoundException e )
 		{
 			e.printStackTrace();
 		}
-		catch( XMLStreamException e )
+		catch ( XMLStreamException e )
 		{
 			e.printStackTrace();
 		}

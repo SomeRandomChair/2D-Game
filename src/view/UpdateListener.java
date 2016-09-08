@@ -6,5 +6,5 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public interface UpdateListener
 {
-	public void update( GameContainer gc, StateBasedGame sbg, int delta ) throws SlickException;
+	public void update ( GameContainer gc, StateBasedGame sbg, int delta ) throws SlickException;
 }

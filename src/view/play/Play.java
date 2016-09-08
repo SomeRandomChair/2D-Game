@@ -18,8 +18,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import save.xml.Save;
 
-public class Play
-		extends BasicGameState
+public class Play extends BasicGameState
 {
 	final private int		state;
 	private UpdateListener	updateListener;
@@ -31,28 +30,28 @@ public class Play
 		this.state = state;
 	}
 
-	public void setUpdateListener( UpdateListener updateListener )
+	public void setUpdateListener ( UpdateListener updateListener )
 	{
 		this.updateListener = updateListener;
 	}
 
 	@Override
-	public int getID()
+	public int getID ()
 	{
 		return state;
 	}
 
 	@Override
-	public void init( GameContainer gc, StateBasedGame sbg ) throws SlickException
+	public void init ( GameContainer gc, StateBasedGame sbg ) throws SlickException
 	{
 		model.getCharacter().getCharacterAnimation().createCharacterAnimation();
-		charCentralPosX = ( ( float ) 0.5 * ( gc.getWidth() - 32 ) );
-		charCentralPosY = ( ( float ) 0.5 * ( gc.getHeight() - 32 ) );
+		charCentralPosX = ( (float) 0.5 * ( gc.getWidth() - 32 ) );
+		charCentralPosY = ( (float) 0.5 * ( gc.getHeight() - 32 ) );
 
 		loadGame( model.getSaveDataHandler().getSaveFiles().lastEntry().getValue() );
 	}
 
-	public void loadGame( Save save ) throws SlickException
+	public void loadGame ( Save save ) throws SlickException
 	{
 		setupRenderables( save.getGameMap() );
 		model.getCharacter().getCharacterPhysics().setX( save.getX() );
@@ -60,7 +59,7 @@ public class Play
 		model.getCharacter().getCharacterAnimation().loadLookDirection( save.getDirection() );
 	}
 
-	private void setupRenderables( AbstractGameMap newMap ) throws SlickException
+	private void setupRenderables ( AbstractGameMap newMap ) throws SlickException
 	{
 		model.setMap( newMap );
 		model.getMap().loadMap();
@@ -69,21 +68,21 @@ public class Play
 		model.setStandardRenderableImages( new ArrayList<RenderableImage>() );
 		model.setTopRenderableImages( new ArrayList<RenderableImage>() );
 
-		for( ImageObject imageObject : model.getMap().getImageObjects() )
+		for (ImageObject imageObject : model.getMap().getImageObjects())
 
-			for( RenderableImage renderableImage : imageObject.getRenderables() )
+			for (RenderableImage renderableImage : imageObject.getRenderables())
 
-				switch( renderableImage.getZType() )
+				switch ( renderableImage.getZType() )
 				{
-					case BACKGROUND :
+					case BACKGROUND:
 						model.getBackgroundRenderableImages().add( renderableImage );
 						break;
 
-					case STANDARD :
+					case STANDARD:
 						model.getStandardRenderableImages().add( renderableImage );
 						break;
 
-					case TOP :
+					case TOP:
 						model.getTopRenderableImages().add( renderableImage );
 						break;
 				}
@@ -92,11 +91,11 @@ public class Play
 	}
 
 	@Override
-	public void render( GameContainer gc, StateBasedGame sbg, Graphics g ) throws SlickException
+	public void render ( GameContainer gc, StateBasedGame sbg, Graphics g ) throws SlickException
 	{
 		drawMap( gc, sbg, g );
 
-		if( model.isEscMenu() )
+		if ( model.isEscMenu() )
 		{
 			g.drawString( "Resume (R)", 250, 100 );
 			g.drawString( "Main Menu (M)", 250, 150 );
@@ -115,7 +114,7 @@ public class Play
 	private float	positionOfCharacterOnScreenX;
 	private float	positionOfCharacterOnScreenY;
 
-	private void drawMap( GameContainer gc, StateBasedGame sbg, Graphics g ) throws SlickException
+	private void drawMap ( GameContainer gc, StateBasedGame sbg, Graphics g ) throws SlickException
 	{
 		findScreenPlacement();
 
@@ -123,63 +122,70 @@ public class Play
 
 		model.getMap().getBackground().draw( backgroundXPos, backgroundYPos );
 
-		for( RenderableImage backgroundRenderableImage : model.getBackgroundRenderableImages() )
-			backgroundRenderableImage.getRenderable().draw( backgroundXPos + backgroundRenderableImage.getX(), backgroundYPos + backgroundRenderableImage.getY() );
+		for (RenderableImage backgroundRenderableImage : model.getBackgroundRenderableImages())
+			backgroundRenderableImage.getRenderable().draw( backgroundXPos + backgroundRenderableImage.getX(),
+					backgroundYPos + backgroundRenderableImage.getY() );
 
-		for( RenderableImage standardRenderableImage : model.getStandardRenderableImages() )
+		for (RenderableImage standardRenderableImage : model.getStandardRenderableImages())
 		{
-			if( ! characterDrawnYet )
-				if( standardRenderableImage.getYRenderPos() + (int) standardRenderableImage.getY() > model.getCharacter().getCharacterPhysics().getY() + model.getCharacter().getCharacterPhysics().getCollBoxYOffset() )
+			if ( !characterDrawnYet )
+				if ( standardRenderableImage.getYRenderPos()
+						+ (int) standardRenderableImage.getY() > model.getCharacter().getCharacterPhysics().getY()
+								+ model.getCharacter().getCharacterPhysics().getCollBoxYOffset() )
 				{
-					model.getCharacter().getCharacterAnimation().getCharacterAnimation().draw( positionOfCharacterOnScreenX, positionOfCharacterOnScreenY );
+					model.getCharacter().getCharacterAnimation().getCharacterAnimation().draw( positionOfCharacterOnScreenX,
+							positionOfCharacterOnScreenY );
 					characterDrawnYet = true;
 				}
-			standardRenderableImage.getRenderable().draw( backgroundXPos + standardRenderableImage.getX(), backgroundYPos + standardRenderableImage.getY() );
+			standardRenderableImage.getRenderable().draw( backgroundXPos + standardRenderableImage.getX(),
+					backgroundYPos + standardRenderableImage.getY() );
 		}
 
-		if( ! characterDrawnYet )
-			model.getCharacter().getCharacterAnimation().getCharacterAnimation().draw( positionOfCharacterOnScreenX, positionOfCharacterOnScreenY );
+		if ( !characterDrawnYet )
+			model.getCharacter().getCharacterAnimation().getCharacterAnimation().draw( positionOfCharacterOnScreenX,
+					positionOfCharacterOnScreenY );
 
-		for( RenderableImage topRenderableImage : model.getTopRenderableImages() )
-			topRenderableImage.getRenderable().draw( backgroundXPos + topRenderableImage.getX(), backgroundYPos + topRenderableImage.getY() );
+		for (RenderableImage topRenderableImage : model.getTopRenderableImages())
+			topRenderableImage.getRenderable().draw( backgroundXPos + topRenderableImage.getX(),
+					backgroundYPos + topRenderableImage.getY() );
 	}
 
-	private void findScreenPlacement()
+	private void findScreenPlacement ()
 	{
-		backgroundXPos = charCentralPosX - ( float ) ( model.getCharacter().getCharacterPhysics().getX() );
-		backgroundYPos = charCentralPosY - ( float ) ( model.getCharacter().getCharacterPhysics().getY() );
+		backgroundXPos = charCentralPosX - (float) ( model.getCharacter().getCharacterPhysics().getX() );
+		backgroundYPos = charCentralPosY - (float) ( model.getCharacter().getCharacterPhysics().getY() );
 		positionOfCharacterOnScreenX = charCentralPosX;
 		positionOfCharacterOnScreenY = charCentralPosY;
 
-		if( model.getMap().getBackground().getWidth() < model.WIDTH )
+		if ( model.getMap().getBackground().getWidth() < model.WIDTH )
 		{
 			int temp = ( model.WIDTH - model.getMap().getBackground().getWidth() ) >> 1;
 			positionOfCharacterOnScreenX += temp - backgroundXPos;
 			backgroundXPos = temp;
 		}
-		else if( backgroundXPos > 0 )
+		else if ( backgroundXPos > 0 )
 		{
 			positionOfCharacterOnScreenX -= backgroundXPos;
 			backgroundXPos = 0;
 		}
-		else if( model.getMap().getBackground().getWidth() < model.WIDTH - backgroundXPos )
+		else if ( model.getMap().getBackground().getWidth() < model.WIDTH - backgroundXPos )
 		{
 			positionOfCharacterOnScreenX += model.WIDTH - backgroundXPos - model.getMap().getBackground().getWidth();
 			backgroundXPos = model.WIDTH - model.getMap().getBackground().getWidth();
 		}
 
-		if( model.getMap().getBackground().getHeight() < model.HEIGHT )
+		if ( model.getMap().getBackground().getHeight() < model.HEIGHT )
 		{
 			int temp = ( model.HEIGHT - model.getMap().getBackground().getHeight() ) >> 1;
 			positionOfCharacterOnScreenY += temp - backgroundYPos;
 			backgroundYPos = temp;
 		}
-		else if( backgroundYPos > 0 )
+		else if ( backgroundYPos > 0 )
 		{
 			positionOfCharacterOnScreenY -= backgroundYPos;
 			backgroundYPos = 0;
 		}
-		else if( model.HEIGHT - backgroundYPos > model.getMap().getBackground().getHeight() )
+		else if ( model.HEIGHT - backgroundYPos > model.getMap().getBackground().getHeight() )
 		{
 			positionOfCharacterOnScreenY += model.HEIGHT - backgroundYPos - model.getMap().getBackground().getHeight();
 			backgroundYPos = model.HEIGHT - model.getMap().getBackground().getHeight();
@@ -187,14 +193,14 @@ public class Play
 	}
 
 	@Override
-	public void update( GameContainer gc, StateBasedGame sbg, int delta ) throws SlickException
+	public void update ( GameContainer gc, StateBasedGame sbg, int delta ) throws SlickException
 	{
 		fireUpdateEvent( gc, sbg, delta );
 	}
 
-	public void fireUpdateEvent( GameContainer gc, StateBasedGame sbg, int delta ) throws SlickException
+	public void fireUpdateEvent ( GameContainer gc, StateBasedGame sbg, int delta ) throws SlickException
 	{
-		if( updateListener != null )
+		if ( updateListener != null )
 			updateListener.update( gc, sbg, delta );
 	}
 

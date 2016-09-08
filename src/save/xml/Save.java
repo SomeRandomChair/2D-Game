@@ -27,7 +27,7 @@ public class Save
 	{
 		this.xmlToData = new LinkedHashMap<SaveAttribute, String>()
 		{
-			private static final long	serialVersionUID	= 7413871922939333215L;
+			private static final long serialVersionUID = 7413871922939333215L;
 			{
 				put( SaveAttribute.NAME, name );
 				put( SaveAttribute.MAP, mapName );
@@ -41,61 +41,62 @@ public class Save
 
 	public Save( String name, AbstractGameMap gameMap, int x, int y, Direction direction, String data )
 	{
-		this( name, gameMap.toXMLString(), Integer.toString( x ), Integer.toString( y ), ( direction == null ? null : direction.toString() ), data );
+		this( name, gameMap.toXMLString(), Integer.toString( x ), Integer.toString( y ),
+				( direction == null ? null : direction.toString() ), data );
 	}
 
-	protected LinkedHashMap<SaveAttribute, String> getXmlToData()
+	protected LinkedHashMap<SaveAttribute, String> getXmlToData ()
 	{
 		return xmlToData;
 	}
 
-	public String getName()
+	public String getName ()
 	{
 		return xmlToData.get( SaveAttribute.NAME );
 	}
 
-	public AbstractGameMap getGameMap()
+	public AbstractGameMap getGameMap ()
 	{
 		return getGameMap( xmlToData.get( SaveAttribute.MAP ).toString() );
 	}
 
-	public int getX()
+	public int getX ()
 	{
 		return Integer.parseInt( xmlToData.get( SaveAttribute.X ) );
 	}
 
-	public int getY()
+	public int getY ()
 	{
 		return Integer.parseInt( xmlToData.get( SaveAttribute.Y ) );
 	}
 
-	public Direction getDirection()
+	public Direction getDirection ()
 	{
 		return Direction.valueOf( xmlToData.get( SaveAttribute.DIRECTION ) );
 	}
 
-	public String getData()
+	public String getData ()
 	{
 		return xmlToData.get( SaveAttribute.DATA );
 	}
 
-	public static AbstractGameMap getGameMap( String mapName )
+	public static AbstractGameMap getGameMap ( String mapName )
 	{
-		switch( mapName )
+		switch ( mapName )
 		{
-			case "HouseInner" :
+			case "HouseInner":
 				return new MapHouseInner();
-			case "HouseOuter" :
+			case "HouseOuter":
 				return new MapHouseOuter();
-			case "HouseForest" :
+			case "HouseForest":
 				return new MapHouseForest();
-			default :
+			default:
 				return null;
 		}
 	}
 
 	@Override
-	public String toString()
+	public String toString ()
 	{
 		return xmlToData.toString();
 	}

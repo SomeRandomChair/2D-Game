@@ -10,6 +10,7 @@ public class PlayerCharacterCreation
 {
 	public static PlayerCharacter createKnight ( String name )
 	{
-		return new PlayerCharacter( name, Direction.DOWN, new PlayerCharacterStats( 12, 12, 12, 12 ), Weapon.getShortsword(), HeadArmour.getIronHead (), TorsoArmour.getIronPlatebody (), LegArmour.getIronPlatebody (), ForearmArmour.getIronPlatebody () );
+		return new PlayerCharacter( name, Direction.DOWN, new PlayerCharacterStats( 12, 12, 12, 12 ), Weapon.getShortsword(),
+				HeadArmour.getIronHead(), TorsoArmour.getIronPlatebody(), LegArmour.getIronPlatebody(), ForearmArmour.getIronPlatebody() );
 	}
 }

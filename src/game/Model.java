@@ -48,89 +48,89 @@ public class Model
 		zComparator = new Comparator<RenderableImage>()
 		{
 			@Override
-			public int compare( RenderableImage obj1, RenderableImage obj2 )
+			public int compare ( RenderableImage obj1, RenderableImage obj2 )
 			{
 				return Integer.signum( ( (int) obj1.getY() + obj1.getYRenderPos() ) - ( (int) obj2.getY() + obj2.getYRenderPos() ) );
 			}
 		};
 	}
 
-	public SaveDataHandler getSaveDataHandler()
+	public SaveDataHandler getSaveDataHandler ()
 	{
 		return saveDataHandler;
 	}
 
-	public void setSaveDataHandler( SaveDataHandler saveDataHandler )
+	public void setSaveDataHandler ( SaveDataHandler saveDataHandler )
 	{
 		this.saveDataHandler = saveDataHandler;
 	}
 
-	public PlayerCharacter getCharacter()
+	public PlayerCharacter getCharacter ()
 	{
 		return character;
 	}
 
-	public void setCharacter( PlayerCharacter character )
+	public void setCharacter ( PlayerCharacter character )
 	{
 		this.character = character;
 	}
 
-	public AbstractGameMap getMap()
+	public AbstractGameMap getMap ()
 	{
 		return map;
 	}
 
-	public void setMap( AbstractGameMap map )
+	public void setMap ( AbstractGameMap map )
 	{
 		this.map = map;
 	}
 
-	public Comparator<RenderableImage> getZComparator()
+	public Comparator<RenderableImage> getZComparator ()
 	{
 		return zComparator;
 	}
 
-	public List<RenderableImage> getBackgroundRenderableImages()
+	public List<RenderableImage> getBackgroundRenderableImages ()
 	{
 		return backgroundRenderableImages;
 	}
 
-	public void setBackgroundRenderableImages( List<RenderableImage> backgroundRenderableImages )
+	public void setBackgroundRenderableImages ( List<RenderableImage> backgroundRenderableImages )
 	{
 		this.backgroundRenderableImages = backgroundRenderableImages;
 	}
 
-	public List<RenderableImage> getStandardRenderableImages()
+	public List<RenderableImage> getStandardRenderableImages ()
 	{
 		return standardRenderableImages;
 	}
 
-	public void setStandardRenderableImages( List<RenderableImage> standardRenderableImages )
+	public void setStandardRenderableImages ( List<RenderableImage> standardRenderableImages )
 	{
 		this.standardRenderableImages = standardRenderableImages;
 	}
 
-	public List<RenderableImage> getTopRenderableImages()
+	public List<RenderableImage> getTopRenderableImages ()
 	{
 		return topRenderableImages;
 	}
 
-	public void setTopRenderableImages( List<RenderableImage> topRenderableImages )
+	public void setTopRenderableImages ( List<RenderableImage> topRenderableImages )
 	{
 		this.topRenderableImages = topRenderableImages;
 	}
 
-	public boolean isEscMenu()
+	public boolean isEscMenu ()
 	{
 		return escMenu;
 	}
 
-	public void setEscMenu( boolean escMenu )
+	public void setEscMenu ( boolean escMenu )
 	{
 		this.escMenu = escMenu;
 	}
 
-	public void changeMap( MapChange mapChange ) throws SlickException
+	public void changeMap ( MapChange mapChange ) throws SlickException
 	{
 		setupRenderables( mapChange.getMapTo() );
 
@@ -138,7 +138,7 @@ public class Model
 		getCharacter().getCharacterPhysics().setY( getCharacter().getCharacterPhysics().getY() + mapChange.getChangeInY() );
 	}
 
-	public void setupRenderables( AbstractGameMap newMap ) throws SlickException
+	public void setupRenderables ( AbstractGameMap newMap ) throws SlickException
 	{
 		this.map = newMap;
 		map.loadMap();
@@ -147,21 +147,21 @@ public class Model
 		standardRenderableImages = new ArrayList<RenderableImage>();
 		topRenderableImages = new ArrayList<RenderableImage>();
 
-		for( ImageObject imageObject : map.getImageObjects() )
+		for (ImageObject imageObject : map.getImageObjects())
 
-			for( RenderableImage renderableImage : imageObject.getRenderables() )
+			for (RenderableImage renderableImage : imageObject.getRenderables())
 
-				switch( renderableImage.getZType() )
+				switch ( renderableImage.getZType() )
 				{
-					case BACKGROUND :
+					case BACKGROUND:
 						backgroundRenderableImages.add( renderableImage );
 						break;
 
-					case STANDARD :
+					case STANDARD:
 						standardRenderableImages.add( renderableImage );
 						break;
 
-					case TOP :
+					case TOP:
 						topRenderableImages.add( renderableImage );
 						break;
 				}
