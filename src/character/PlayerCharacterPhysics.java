@@ -3,18 +3,18 @@ package character;
 import java.util.ArrayList;
 import java.util.List;
 
-import maps.AbstractGameMap;
-import maps.ImageObject;
-
 import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
+import geometry.Position;
+import maps.AbstractGameMap;
+import maps.ImageObject;
+
 public class PlayerCharacterPhysics
 {
-	private double				X;
-	private double				Y;
+	private Position			position;
 	private final static double	BASESPEED					= 0.15;
 	private double				speed;
 
@@ -29,18 +29,8 @@ public class PlayerCharacterPhysics
 
 	public PlayerCharacterPhysics()
 	{
-		this.collisionBox = new Ellipse( (int) X + collBoxXOffset, (int) Y + collBoxYOffset, 8, 8, 16 );
+		this.collisionBox = new Ellipse( collBoxXOffset, collBoxYOffset, 8, 8, 16 );
 		this.speed = BASESPEED;
-	}
-
-	public double getX ()
-	{
-		return X;
-	}
-
-	public double getY ()
-	{
-		return Y;
 	}
 
 	public double getSpeed ()
@@ -58,20 +48,19 @@ public class PlayerCharacterPhysics
 		return zOrder;
 	}
 
-	public void setX ( double x )
+	public Position getPosition ()
 	{
-		X = x;
+		return position;
 	}
 
-	public void setY ( double y )
+	public void setPosition ( Position position )
 	{
-		Y = y;
+		this.position = position;
 	}
 
-	public void setPoint ( double x, double y )
+	public void setPosition ( double x, double y )
 	{
-		X = x;
-		Y = y;
+		position = new Position( x, y );
 	}
 
 	public Shape getCollisionBox ()
@@ -129,7 +118,7 @@ public class PlayerCharacterPhysics
 		{
 			return false;
 		}
-		for (int i = 0; i < delta; i++)
+		for ( int i = 0; i < delta; i++ )
 		{
 			if ( !moveXYAttempts( xChange, yChange, map, false, false ) )
 			{
@@ -172,8 +161,8 @@ public class PlayerCharacterPhysics
 		 * Moves this character's collision box to where
 		 * it'll move, to check for a collision.
 		 */
-		collisionBox.setX( (float) ( this.X + xChange + 8 ) );
-		collisionBox.setY( (float) ( this.Y + yChange + 22 ) );
+		collisionBox.setX( (float) ( position.getX() + xChange + 8 ) );
+		collisionBox.setY( (float) ( position.getY() + yChange + 22 ) );
 
 		/*
 		 * A list of vectors which represent the resultant
@@ -187,9 +176,9 @@ public class PlayerCharacterPhysics
 		 * the map, if this character would collide, add
 		 * such resultant movement vectors to listOfVectors.
 		 */
-		for (ImageObject imageObj : map.getImageObjects())
+		for ( ImageObject imageObj : map.getImageObjects() )
 		{
-			for (Shape imageObjCollShape : imageObj.getCollisionBoxes())
+			for ( Shape imageObjCollShape : imageObj.getCollisionBoxes() )
 			{
 				if ( imageObjCollShape.intersects( collisionBox ) )
 				{
@@ -205,8 +194,7 @@ public class PlayerCharacterPhysics
 
 		if ( listOfVectors.size() == 0 )
 		{
-			this.X += xChange;
-			this.Y += yChange;
+			position.translate( xChange, yChange );
 			directionLastMoved = new Vector2f( (float) xChange, (float) yChange );
 			return true;
 		}
@@ -217,7 +205,7 @@ public class PlayerCharacterPhysics
 		Vector2f rightVectorChange = new Vector2f( 0, 0 );
 		Vector2f leftVectorChange = new Vector2f( 0, 0 );
 
-		for (Vector2f vector : listOfVectors)
+		for ( Vector2f vector : listOfVectors )
 		{
 			if ( vector.length() < 0.001 && vector.getTheta() == 0 )
 			{
@@ -280,20 +268,18 @@ public class PlayerCharacterPhysics
 
 		if ( rightDirAngle == 0 )
 		{
-			this.X += leftVectorChange.getX();
-			this.Y += leftVectorChange.getY();
-			this.collisionBox.setX( (float) ( this.X + xChange + collBoxXOffset ) );
-			this.collisionBox.setY( (float) ( this.Y + yChange + collBoxYOffset ) );
+			this.position.translate( leftVectorChange.getX(), leftVectorChange.getY() );
+			this.collisionBox.setLocation( (float) ( position.getX() + xChange + collBoxXOffset ),
+					(float) ( position.getY() + yChange + collBoxYOffset ) );
 			this.directionSecondLastMoved = directionLastMoved;
 			this.directionLastMoved = new Vector2f( leftVectorChange.getX(), leftVectorChange.getY() );
 			return true;
 		}
 		else if ( leftDirAngle == 0 )
 		{
-			this.X += rightVectorChange.getX();
-			this.Y += rightVectorChange.getY();
-			this.collisionBox.setX( (float) ( this.X + xChange + collBoxXOffset ) );
-			this.collisionBox.setY( (float) ( this.Y + yChange + collBoxYOffset ) );
+			this.position.translate( rightVectorChange.getX(), rightVectorChange.getY() );
+			this.collisionBox.setLocation( (float) ( position.getX() + xChange + collBoxXOffset ),
+					(float) ( position.getY() + yChange + collBoxYOffset ) );
 			this.directionSecondLastMoved = directionLastMoved;
 			this.directionLastMoved = new Vector2f( rightVectorChange.getX(), rightVectorChange.getY() );
 			return true;
@@ -326,7 +312,7 @@ public class PlayerCharacterPhysics
 		Line line;
 		List<Vector2f> list = new ArrayList<Vector2f>();
 
-		for (int i = 0; i < imageObjCollShape.getPointCount(); i++)
+		for ( int i = 0; i < imageObjCollShape.getPointCount(); i++ )
 		{
 			movementVector = new Vector2f( (float) xChange, (float) yChange );
 

@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 
-import view.play.Entity;
+import view.local.Entity;
 
 public abstract class AbstractGameMap
 {
@@ -91,7 +91,7 @@ public abstract class AbstractGameMap
 			return false;
 		}
 
-		for (Shape shape : wildernessAreas)
+		for ( Shape shape : wildernessAreas )
 		{
 			if ( shape.contains( (float) x, (float) y ) )
 			{

@@ -1,4 +1,4 @@
-package view.play;
+package view.local;
 
 public class Entity
 {

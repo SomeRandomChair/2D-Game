@@ -1,34 +1,33 @@
 package view;
 
-import game.Model;
-
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import data.MasterData;
 import view.battle.Battle;
-import view.menu.Menu;
-import view.play.Play;
+import view.local.LocalView;
+import view.menu.MenuView;
 
-public class View extends StateBasedGame
+public class MasterView extends StateBasedGame
 {
-	private Model	model;
+	private MasterData		data;
 
-	private Play	play;
-	private Menu	menu;
-	private Battle	battle;
+	private LocalView		localView;
+	private MenuView			menu;
+	private Battle			battle;
 
-	public View( Model model )
+	public MasterView( MasterData data )
 	{
-		super( model.GAMENAME );
-		this.model = model;
-		this.play = new Play( model, StateEnum.PLAY.getValue() );
-		this.menu = new Menu( StateEnum.MENU.getValue() );
+		super( data.GAMENAME );
+		this.data = data;
+		this.localView = new LocalView( this, data, StateEnum.PLAY.getValue() );
+		this.menu = new MenuView( data.getMenuData(), StateEnum.MENU.getValue() );
 		this.battle = new Battle( StateEnum.BATTLE.getValue() );
 
 		this.addState( menu );
-		this.addState( play );
+		this.addState( localView );
 		this.addState( battle );
 	}
 
@@ -49,7 +48,7 @@ public class View extends StateBasedGame
 		try
 		{
 			appGC = new AppGameContainer( this );
-			appGC.setDisplayMode( model.WIDTH, model.HEIGHT, false );
+			appGC.setDisplayMode( data.WIDTH, data.HEIGHT, false );
 			appGC.start();
 		}
 		catch ( SlickException e )
@@ -58,12 +57,12 @@ public class View extends StateBasedGame
 		}
 	}
 
-	public Play getPlay ()
+	public LocalView getLocalView ()
 	{
-		return play;
+		return localView;
 	}
 
-	public Menu getMenu ()
+	public MenuView getMenuView ()
 	{
 		return menu;
 	}

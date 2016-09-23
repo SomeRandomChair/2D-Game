@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-import view.play.Entity;
+import view.local.Entity;
 
 public class MapHouseForest extends AbstractGameMap
 {

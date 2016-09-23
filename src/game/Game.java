@@ -5,7 +5,9 @@ import javax.swing.SwingUtilities;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
-import view.View;
+import controller.MasterController;
+import data.MasterData;
+import view.MasterView;
 
 public class Game
 {
@@ -14,9 +16,9 @@ public class Game
 	public static final int		WIDTH		= 800;
 	public static final int		HEIGHT		= 480;
 
-	private Model				model;
-	private View				view;
-	private Controller			controller;
+	private MasterData			data;
+	private MasterView			view;
+	private MasterController	controller;
 
 	public static void main ( String[] args )
 	{
@@ -44,10 +46,11 @@ public class Game
 
 	private void load () throws SlickException
 	{
-		model = new Model( GAMENAME + " " + VERSION, WIDTH, HEIGHT );
-		view = new View( model );
-		controller = new Controller( model, view );
-		view.getPlay().setUpdateListener( controller );
+		data = new MasterData( GAMENAME + " " + VERSION, WIDTH, HEIGHT );
+		view = new MasterView( data );
+		controller = new MasterController( data, view );
+		view.getLocalView().setUpdateListener( controller.getLocalController() );
+		view.getMenuView().setUpdateListener( controller.getMenuController() );
 		startView();
 	}
 

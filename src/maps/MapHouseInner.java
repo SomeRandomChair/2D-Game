@@ -11,7 +11,7 @@ import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-import view.play.Entity;
+import view.local.Entity;
 
 public class MapHouseInner extends AbstractGameMap
 {

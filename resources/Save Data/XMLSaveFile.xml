@@ -36,7 +36,7 @@
 		<name>SaveName</name>
 		<map>HouseOuter</map>
 		<x>415</x>
-		<y>197</y>
+		<y>3</y>
 		<direction>DOWN</direction>
 		<data>No Data</data>
 	</save>
