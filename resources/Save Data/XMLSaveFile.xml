@@ -40,4 +40,12 @@
 		<direction>DOWN</direction>
 		<data>No Data</data>
 	</save>
+	<save datetime="2016-10-02T19:58:31.310">
+		<name>SaveName</name>
+		<map>HouseOuter</map>
+		<x>402</x>
+		<y>230</y>
+		<direction>DOWN</direction>
+		<data>No Data</data>
+	</save>
 </saves>

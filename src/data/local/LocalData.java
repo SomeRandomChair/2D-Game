@@ -44,7 +44,7 @@ public class LocalData
 	
 	
 
-	public boolean isEscMenu ()
+	public boolean isEscMenuVisible ()
 	{
 		return escMenu;
 	}

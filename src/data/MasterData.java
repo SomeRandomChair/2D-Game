@@ -6,7 +6,7 @@ import character.PlayerCharacter;
 import character.PlayerCharacterCreation;
 import data.battle.BattleData;
 import data.local.LocalData;
-import data.menu.MenuData;
+import data.mainmenu.MainMenuData;
 import data.world.WorldData;
 import maps.AbstractGameMap;
 import save.xml.SaveDataHandler;
@@ -22,7 +22,7 @@ public class MasterData
 
 	private BattleData		battleData;
 	private LocalData		localData;
-	private MenuData		menuData;
+	private MainMenuData		menuData;
 	private WorldData		worldData;
 
 	public MasterData( String gamename, int width, int height ) throws SlickException
@@ -36,7 +36,7 @@ public class MasterData
 		saveDataHandler = new SaveDataHandler();
 		saveDataHandler.read();
 
-		menuData = new MenuData( this );
+		menuData = new MainMenuData( this );
 		localData = new LocalData( this );
 	}
 
@@ -50,7 +50,7 @@ public class MasterData
 		return localData;
 	}
 
-	public MenuData getMenuData ()
+	public MainMenuData getMenuData ()
 	{
 		return menuData;
 	}

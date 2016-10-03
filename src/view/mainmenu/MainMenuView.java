@@ -1,4 +1,4 @@
-package view.menu;
+package view.mainmenu;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -6,19 +6,19 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import data.menu.MenuData;
+import data.mainmenu.MainMenuData;
 import view.UpdateEventFirer;
 import view.UpdateListener;
 
-public class MenuView extends BasicGameState implements UpdateEventFirer
+public class MainMenuView extends BasicGameState implements UpdateEventFirer
 {
 	final private int	state;
 
-	private MenuData	menuData;
+	private MainMenuData	menuData;
 	
 	private UpdateListener updateListener;
 
-	public MenuView( MenuData menuData, int state )
+	public MainMenuView( MainMenuData menuData, int state )
 	{
 		this.menuData = menuData;
 		this.state = state;

@@ -1,4 +1,4 @@
-package controller.menu;
+package controller.mainmenu;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -9,18 +9,18 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import controller.MasterController;
-import data.menu.MenuData;
+import data.mainmenu.MainMenuData;
 import view.StateEnum;
 import view.UpdateListener;
-import view.menu.MenuView;
+import view.mainmenu.MainMenuView;
 
-public class MenuController implements UpdateListener
+public class MainMenuController implements UpdateListener
 {
 	private MasterController masterController;
-	private MenuData menuData;
-	private MenuView menuView;
+	private MainMenuData menuData;
+	private MainMenuView menuView;
 	
-	public MenuController ( MasterController masterController )
+	public MainMenuController ( MasterController masterController )
 	{
 		this.masterController = masterController;
 		this.menuData = masterController.getMasterData().getMenuData();

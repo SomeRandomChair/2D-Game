@@ -13,6 +13,8 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import controller.MasterController;
 import data.MasterData;
 import data.local.LocalData;
+import data.local.LocalMenuData;
+import geometry.Position;
 import maps.MapChange;
 import save.xml.Save;
 import view.MasterView;
@@ -22,20 +24,21 @@ import view.local.LocalView;
 
 public class LocalController implements UpdateListener
 {
-	private MasterController masterController;
-	private MasterData masterData;
-	private MasterView masterView;
-	private LocalData localData;
-	private LocalView localView;
-	
-	public LocalController ( MasterController masterController )
+	private MasterController	masterController;
+	private MasterData			masterData;
+	private MasterView			masterView;
+	private LocalData			localData;
+	private LocalView			localView;
+	private LocalMenuData		localMenuData;
+
+	public LocalController( MasterController masterController )
 	{
 		this.masterController = masterController;
 		this.masterData = masterController.getMasterData();
 		this.masterView = masterController.getMasterView();
 		this.localData = masterController.getMasterData().getLocalData();
 		this.localView = masterController.getMasterView().getLocalView();
-		
+
 	}
 
 	@Override
@@ -43,20 +46,26 @@ public class LocalController implements UpdateListener
 	{
 		Input input = gc.getInput();
 
-		if ( input.isKeyDown( Input.KEY_ESCAPE ) )
+		if ( input.isKeyPressed( Input.KEY_ESCAPE ) )
 		{
-			localData.setEscMenu( true );
+			localData.setEscMenu( !localData.isEscMenuVisible() );
+			if ( localData.isEscMenuVisible() )
+				localMenuData = new LocalMenuData();
 		}
 
-		if ( localData.isEscMenu() )
-		{
-			escapePressed( gc, sbg, delta );
-		}
+		if ( localData.isEscMenuVisible() )
+			menuUpdate( gc, sbg, delta, input );
+		else
+			standardUpdate( gc, sbg, delta, input );
+	}
 
+	private void standardUpdate ( GameContainer gc, StateBasedGame sbg, int delta, Input input ) throws SlickException
+	{
 		boolean hasCharacterMoved = masterData.getCharacter().moveCharacter( delta, input, localData.getMap() );
 
-		if ( hasCharacterMoved && localData.getMap().startBattle( masterData.getCharacter().getCharacterPhysics().getPosition().getX(),
-				masterData.getCharacter().getCharacterPhysics().getPosition().getY(), delta ) )
+		Position characterPos = masterData.getCharacter().getCharacterPhysics().getPosition();
+
+		if ( hasCharacterMoved && localData.getMap().startBattle( characterPos.getX(), characterPos.getY(), delta ) )
 		{
 			masterData.getCharacter().getCharacterAnimation().stopCharacterAnimation();
 			sbg.enterState( StateEnum.BATTLE.getValue(), new FadeOutTransition( Color.black, 1000 ),
@@ -69,12 +78,11 @@ public class LocalController implements UpdateListener
 			{
 				localData.changeMap( mapChangeArea );
 			}
-
 	}
 
-	private boolean escapePressed ( GameContainer gc, StateBasedGame sbg, int delta ) throws SlickException
+	private void menuUpdate ( GameContainer gc, StateBasedGame sbg, int delta, Input input ) throws SlickException
 	{
-		Input input = gc.getInput();
+		masterData.getCharacter().getCharacterAnimation().stopCharacterAnimation();
 
 		if ( input.isKeyDown( Input.KEY_R ) )
 			localData.setEscMenu( false );
@@ -127,7 +135,7 @@ public class LocalController implements UpdateListener
 			localView.loadGame( masterData.getSaveDataHandler().getSaveFiles().lastEntry().getValue() );
 			localData.setEscMenu( false );
 		}
-		return true;
+		return;
 	}
 
 }

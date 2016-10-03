@@ -22,6 +22,7 @@ public class LocalView extends BasicGameState implements UpdateEventFirer
 	private UpdateListener	updateListener;
 	private MasterData		masterData;
 	private LocalData		localData;
+	private LocalMenuView		localMenu;
 
 	public LocalView( MasterView view, MasterData data, int state )
 	{
@@ -29,6 +30,7 @@ public class LocalView extends BasicGameState implements UpdateEventFirer
 		this.masterData = data;
 		this.localData = data.getLocalData();
 		this.state = state;
+		this.localMenu = new LocalMenuView();
 	}
 
 	public void setUpdateListener ( UpdateListener updateListener )
@@ -46,9 +48,27 @@ public class LocalView extends BasicGameState implements UpdateEventFirer
 	public void init ( GameContainer gc, StateBasedGame sbg ) throws SlickException
 	{
 		masterData.getCharacter().getCharacterAnimation().createCharacterAnimation();
-		characterCentralPosition = new Point ( (float) 0.5 * ( gc.getWidth() - 32 ), (float) 0.5 * ( gc.getHeight() - 32 ) );
+		characterCentralPosition = new Point( (float) 0.5 * ( gc.getWidth() - 32 ), (float) 0.5 * ( gc.getHeight() - 32 ) );
 
 		loadGame( masterData.getSaveDataHandler().getSaveFiles().lastEntry().getValue() );
+	}
+
+	@Override
+	public void render ( GameContainer gc, StateBasedGame sbg, Graphics g ) throws SlickException
+	{
+		drawMap( gc, sbg, g );
+
+		if ( localData.isEscMenuVisible() )
+		{
+			localMenu.draw( g );
+		}
+	}
+	
+	@Override
+	public void update ( GameContainer gc, StateBasedGame sbg, int delta ) throws SlickException
+	{
+		if ( updateListener != null )
+			updateListener.update( gc, sbg, delta );
 	}
 
 	public void loadGame ( Save save ) throws SlickException
@@ -58,23 +78,9 @@ public class LocalView extends BasicGameState implements UpdateEventFirer
 		masterData.getCharacter().getCharacterAnimation().loadLookDirection( save.getDirection() );
 	}
 
-	@Override
-	public void render ( GameContainer gc, StateBasedGame sbg, Graphics g ) throws SlickException
-	{
-		drawMap( gc, sbg, g );
-
-		if ( localData.isEscMenu() )
-		{
-			g.drawString( "Resume (R)", 250, 100 );
-			g.drawString( "Main Menu (M)", 250, 150 );
-			g.drawString( "Quit (Q)", 250, 200 );
-			g.drawString( "Save (S)", 250, 250 );
-			g.drawString( "Load (L)", 250, 300 );
-		}
-	}
-
 	private Point	backgroundLocation, characterCentralPosition, characterScreenPosition;
 	private boolean	characterDrawnYet;
+	private int		deltaPosition;
 
 	private void drawMap ( GameContainer gc, StateBasedGame sbg, Graphics g ) throws SlickException
 	{
@@ -114,16 +120,17 @@ public class LocalView extends BasicGameState implements UpdateEventFirer
 
 	private void findScreenPlacement ()
 	{
-		backgroundLocation = new Point( characterCentralPosition.getX() - (float) ( masterData.getCharacter().getCharacterPhysics().getPosition().getX() ),
+		backgroundLocation = new Point(
+				characterCentralPosition.getX() - (float) ( masterData.getCharacter().getCharacterPhysics().getPosition().getX() ),
 				characterCentralPosition.getY() - (float) ( masterData.getCharacter().getCharacterPhysics().getPosition().getY() ) );
-		
-		characterScreenPosition = new Point ( characterCentralPosition.getX(), characterCentralPosition.getY() );
+
+		characterScreenPosition = new Point( characterCentralPosition.getX(), characterCentralPosition.getY() );
 
 		if ( localData.getMap().getBackground().getWidth() < masterData.WIDTH )
 		{
-			int temp = ( masterData.WIDTH - localData.getMap().getBackground().getWidth() ) >> 1;
-			characterScreenPosition.setX( characterScreenPosition.getX() + temp - backgroundLocation.getX() );
-			backgroundLocation.setX( temp );
+			deltaPosition = ( masterData.WIDTH - localData.getMap().getBackground().getWidth() ) >> 1;
+			characterScreenPosition.setX( characterScreenPosition.getX() + deltaPosition - backgroundLocation.getX() );
+			backgroundLocation.setX( deltaPosition );
 		}
 		else if ( backgroundLocation.getX() > 0 )
 		{
@@ -132,15 +139,16 @@ public class LocalView extends BasicGameState implements UpdateEventFirer
 		}
 		else if ( localData.getMap().getBackground().getWidth() < masterData.WIDTH - backgroundLocation.getX() )
 		{
-			characterScreenPosition.setX( characterScreenPosition.getX() + masterData.WIDTH - backgroundLocation.getX() - localData.getMap().getBackground().getWidth() );
+			characterScreenPosition.setX( characterScreenPosition.getX() + masterData.WIDTH - backgroundLocation.getX()
+					- localData.getMap().getBackground().getWidth() );
 			backgroundLocation.setX( masterData.WIDTH - localData.getMap().getBackground().getWidth() );
 		}
 
 		if ( localData.getMap().getBackground().getHeight() < masterData.HEIGHT )
 		{
-			int temp = ( masterData.HEIGHT - localData.getMap().getBackground().getHeight() ) >> 1;
-			characterScreenPosition.setY( characterScreenPosition.getY() + temp - backgroundLocation.getY() );
-			backgroundLocation.setY( temp );
+			deltaPosition = ( masterData.HEIGHT - localData.getMap().getBackground().getHeight() ) >> 1;
+			characterScreenPosition.setY( characterScreenPosition.getY() + deltaPosition - backgroundLocation.getY() );
+			backgroundLocation.setY( deltaPosition );
 		}
 		else if ( backgroundLocation.getY() > 0 )
 		{
@@ -149,15 +157,9 @@ public class LocalView extends BasicGameState implements UpdateEventFirer
 		}
 		else if ( localData.getMap().getBackground().getHeight() < masterData.HEIGHT - backgroundLocation.getY() )
 		{
-			characterScreenPosition.setY( characterScreenPosition.getY() + masterData.HEIGHT - backgroundLocation.getY() - localData.getMap().getBackground().getHeight() );
+			characterScreenPosition.setY( characterScreenPosition.getY() + masterData.HEIGHT - backgroundLocation.getY()
+					- localData.getMap().getBackground().getHeight() );
 			backgroundLocation.setY( masterData.HEIGHT - localData.getMap().getBackground().getHeight() );
 		}
-	}
-
-	@Override
-	public void update ( GameContainer gc, StateBasedGame sbg, int delta ) throws SlickException
-	{
-		if ( updateListener != null )
-			updateListener.update( gc, sbg, delta );
 	}
 }

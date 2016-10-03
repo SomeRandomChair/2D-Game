@@ -1,7 +1,7 @@
 package controller;
 
 import controller.local.LocalController;
-import controller.menu.MenuController;
+import controller.mainmenu.MainMenuController;
 import data.MasterData;
 import view.MasterView;
 
@@ -11,7 +11,7 @@ public class MasterController
 	private MasterView		masterView;
 
 	private LocalController	localController;
-	private MenuController	menuController;
+	private MainMenuController	menuController;
 
 	public MasterController( MasterData masterData, MasterView masterView )
 	{
@@ -19,7 +19,7 @@ public class MasterController
 		this.masterView = masterView;
 
 		localController = new LocalController( this );
-		menuController = new MenuController( this );
+		menuController = new MainMenuController( this );
 	}
 
 	public MasterData getMasterData ()
@@ -37,7 +37,7 @@ public class MasterController
 		return localController;
 	}
 
-	public MenuController getMenuController ()
+	public MainMenuController getMenuController ()
 	{
 		return menuController;
 	}

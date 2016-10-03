@@ -1,4 +1,4 @@
-package data.menu;
+package data.mainmenu;
 
 import java.nio.file.Paths;
 
@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 
 import data.MasterData;
 
-public class MenuData
+public class MainMenuData
 {
 	private MasterData	masterData;
 
@@ -25,7 +25,7 @@ public class MenuData
 	int					buttonTimer	= 0;
 	boolean				buttonHeldDown;
 
-	public MenuData( MasterData masterData ) throws SlickException
+	public MainMenuData( MasterData masterData ) throws SlickException
 	{
 		this.masterData = masterData;
 

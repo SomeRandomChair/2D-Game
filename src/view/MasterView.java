@@ -8,14 +8,14 @@ import org.newdawn.slick.state.StateBasedGame;
 import data.MasterData;
 import view.battle.Battle;
 import view.local.LocalView;
-import view.menu.MenuView;
+import view.mainmenu.MainMenuView;
 
 public class MasterView extends StateBasedGame
 {
 	private MasterData		data;
 
 	private LocalView		localView;
-	private MenuView			menu;
+	private MainMenuView			menu;
 	private Battle			battle;
 
 	public MasterView( MasterData data )
@@ -23,7 +23,7 @@ public class MasterView extends StateBasedGame
 		super( data.GAMENAME );
 		this.data = data;
 		this.localView = new LocalView( this, data, StateEnum.PLAY.getValue() );
-		this.menu = new MenuView( data.getMenuData(), StateEnum.MENU.getValue() );
+		this.menu = new MainMenuView( data.getMenuData(), StateEnum.MENU.getValue() );
 		this.battle = new Battle( StateEnum.BATTLE.getValue() );
 
 		this.addState( menu );
@@ -62,7 +62,7 @@ public class MasterView extends StateBasedGame
 		return localView;
 	}
 
-	public MenuView getMenuView ()
+	public MainMenuView getMenuView ()
 	{
 		return menu;
 	}
